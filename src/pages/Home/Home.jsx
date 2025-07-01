@@ -7,6 +7,9 @@ import { ThemeContext } from '../../theme/ThemeContext';
 import { useContext } from 'react';
 import InitialChat from '../../components/InitialChat/InitialChat';
 import ChattingCard from '../../components/ChattingCard/ChattingCard';
+import ChatInput from '../../components/ChatInput/ChatInput';
+import FeedbackModal from '../../components/FeedbackModal/FeedbackModal';
+
 export default function Home() {
 
     const [showModal, setShowModal] = useState(false)
@@ -98,7 +101,10 @@ export default function Home() {
                         />
                     ))}
                 </Stack>
-            )}       
+            )} 
+
+            <ChatInput generateResponse={generateResponse} setScroll={setScrollToBottom} chat={chat} clearChat={() => setChat([])} />
+            <FeedbackModal open={showModal} updateChat={setChat} chatId={selectedChatId} handleClose={() => setShowModal(false)} />      
         </Stack>
     )
 }
