@@ -5,7 +5,7 @@ import { useOutletContext } from "react-router-dom";
 import Navbar from '../../components/Navbar/Navbar';
 import { ThemeContext } from '../../theme/ThemeContext';
 import { useContext } from 'react';
-
+import InitialChat from '../../components/InitialChat/InitialChat';
 export default function Home() {
 
     const [showModal, setShowModal] = useState(false)
@@ -62,7 +62,9 @@ export default function Home() {
             }}
         >
 
-            <Navbar />            
+            <Navbar />  
+
+            {chat.length == 0 && <InitialChat generateResponse={generateResponse} />}          
         </Stack>
     )
 }
