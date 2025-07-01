@@ -6,6 +6,7 @@ import Navbar from '../../components/Navbar/Navbar';
 import { ThemeContext } from '../../theme/ThemeContext';
 import { useContext } from 'react';
 import InitialChat from '../../components/InitialChat/InitialChat';
+import ChattingCard from '../../components/ChattingCard/ChattingCard';
 export default function Home() {
 
     const [showModal, setShowModal] = useState(false)
@@ -64,7 +65,40 @@ export default function Home() {
 
             <Navbar />  
 
-            {chat.length == 0 && <InitialChat generateResponse={generateResponse} />}          
+            {chat.length == 0 && <InitialChat generateResponse={generateResponse} />}
+            {chat.length > 0 && (
+                <Stack
+                    height={1}
+                    flexGrow={0}
+                    p={{ xs: 2, md: 3 }}
+                    spacing={{ xs: 2, md: 3 }}
+                    sx={{
+                        overflowY: 'auto',
+                        '&::-webkit-scrollbar': {
+                            width: '10px',
+                        },
+                        '&::-webkit-scrollbar-track': {
+                            boxShadow: 'inset 0 0 8px rgba(0,0,0,0.1)',
+                            borderRadius: '8px'
+                        },
+                        '&::-webkit-scrollbar-thumb': {
+                            backgroundColor: 'rgba(151, 133, 186,0.4)',
+                            borderRadius: '8px'
+                        }
+                    }}
+                    ref={listRef}
+                >
+                    {chat.map((item, index) => (
+                        <ChattingCard
+                            details={item}
+                            key={index}
+                            updateChat={setChat}
+                            setSelectedChatId={setSelectedChatId}
+                            showFeedbackModal={() => setShowModal(true)}
+                        />
+                    ))}
+                </Stack>
+            )}       
         </Stack>
     )
 }
